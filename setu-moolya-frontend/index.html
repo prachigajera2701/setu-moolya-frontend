@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setu Moolya | सेतु मूल्य - AgriTech Value Chain Platform</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fullscreen Green Farm Background Layer -->
+  <div class="farm-background" id="farmBackground">
+    <div class="bg-overlay"></div>
+    <div class="floating-spores" id="floatingSpores"></div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="glass-navbar">
+    <div class="nav-brand">
+      <img src="assets/logo.jpg" alt="Setu Moolya Logo" class="nav-logo" />
+      <div class="nav-brand-text">
+        <span class="brand-title">Setu Moolya <span class="brand-devanagari">(सेतु मूल्य)</span></span>
+        <span class="brand-tagline">Every Root Deserves Its Worth</span>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <!-- Background Switcher -->
+      <button class="glass-btn btn-sm" id="bgSwitchBtn" title="Switch Farm Background">
+        <i class="fa-solid fa-image"></i>
+        <span>Change Scene</span>
+      </button>
+
+      <!-- Backend Connection Status Pill -->
+      <div class="status-indicator" id="backendStatusPill" title="Checking backend connection at http://localhost:5000">
+        <span class="status-dot pulsing" id="statusDot"></span>
+        <span class="status-text" id="statusText">Connecting...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- ============================================== -->
+    <!-- AUTH CONTAINER (Transparent Glassmorphic Card) -->
+    <!-- ============================================== -->
+    <section class="auth-section" id="authSection">
+      <div class="glass-card auth-card">
+        
+        <!-- Header with App Logo -->
+        <div class="card-brand-header">
+          <div class="logo-wrapper">
+            <img src="assets/logo.jpg" alt="Setu Moolya" class="brand-avatar" />
+          </div>
+          <h1 class="brand-heading">Setu Moolya</h1>
+          <p class="brand-sub">AgriTech & Rural Herb Direct B2B Escrow</p>
+          <div class="motto-badge">
+            <i class="fa-solid fa-wheat-awn"></i> FARMER • VALUE • GROWTH
+          </div>
+        </div>
+
+        <!-- Navigation Tabs (Login / Register) -->
+        <div class="tab-switcher">
+          <button class="tab-btn active" id="tabLoginBtn" type="button">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In
+          </button>
+          <button class="tab-btn" id="tabRegisterBtn" type="button">
+            <i class="fa-solid fa-user-plus"></i> Register
+          </button>
+        </div>
+
+        <!-- Notification / Alert Banner -->
+        <div class="alert-box hidden" id="alertBox">
+          <i class="fa-solid fa-circle-exclamation alert-icon" id="alertIcon"></i>
+          <span class="alert-msg" id="alertMsg"></span>
+          <button class="alert-close" id="alertCloseBtn">&times;</button>
+        </div>
+
+        <!-- --------------------------------- -->
+        <!-- FORM 1: LOGIN FORM                -->
+        <!-- --------------------------------- -->
+        <form class="auth-form" id="loginForm">
+          
+          <!-- Role Quick Selection Bar -->
+          <div class="role-selector-container">
+            <label class="form-label">Select Your Role:</label>
+            <div class="role-chips">
+              <label class="role-chip active">
+                <input type="radio" name="loginRole" value="admin" checked />
+                <span class="chip-content">
+                  <i class="fa-solid fa-shield-halved"></i> Admin
+                </span>
+              </label>
+              <label class="role-chip">
+                <input type="radio" name="loginRole" value="farmer" />
+                <span class="chip-content">
+                  <i class="fa-solid fa-seedling"></i> Farmer
+                </span>
+              </label>
+              <label class="role-chip">
+                <input type="radio" name="loginRole" value="fpo" />
+                <span class="chip-content">
+                  <i class="fa-solid fa-people-roof"></i> FPO
+                </span>
+              </label>
+              <label class="role-chip">
+                <input type="radio" name="loginRole" value="buyer" />
+                <span class="chip-content">
+                  <i class="fa-solid fa-building"></i> Buyer
+                </span>
+              </label>
+              <label class="role-chip">
+                <input type="radio" name="loginRole" value="lab" />
+                <span class="chip-content">
+                  <i class="fa-solid fa-flask"></i> Lab
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Email or Username Input -->
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">
+              <i class="fa-solid fa-envelope"></i> Email or Username
+            </label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-at input-icon"></i>
+              <input 
+                type="email" 
+                id="loginEmail" 
+                class="glass-input" 
+                placeholder="admin@setumoolya.org or name@domain.com" 
+                required 
+                autocomplete="username"
+              />
+            </div>
+          </div>
+
+          <!-- Password with Show/Hide -->
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label" for="loginPassword">
+                <i class="fa-solid fa-lock"></i> Password
+              </label>
+              <button type="button" class="link-btn" id="forgotPasswordLink">
+                Forgot password?
+              </button>
+            </div>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-key input-icon"></i>
+              <input 
+                type="password" 
+                id="loginPassword" 
+                class="glass-input" 
+                placeholder="••••••••••••" 
+                required 
+                autocomplete="current-password"
+              />
+              <button type="button" class="toggle-password" id="toggleLoginPassword" title="Show or hide password">
+                <i class="fa-solid fa-eye" id="eyeIconLogin"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember Me Checkbox -->
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe" checked />
+              <span class="custom-checkbox"></span>
+              <span class="checkbox-text">Keep me logged in</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn primary-btn" id="loginSubmitBtn">
+            <span class="btn-text">
+              <i class="fa-solid fa-right-to-bracket"></i> Sign In to Setu Moolya
+            </span>
+            <span class="btn-loader hidden">
+              <i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...
+            </span>
+          </button>
+
+          <!-- Quick Demo Credential Fillers for Testing -->
+          <div class="quick-credentials">
+            <span class="quick-label">Fast Demo Fill:</span>
+            <div class="quick-buttons">
+              <button type="button" class="quick-pill" onclick="quickFill('admin')">
+                <i class="fa-solid fa-user-shield"></i> Admin
+              </button>
+              <button type="button" class="quick-pill" onclick="quickFill('farmer')">
+                <i class="fa-solid fa-user-tag"></i> Farmer
+              </button>
+              <button type="button" class="quick-pill" onclick="quickFill('buyer')">
+                <i class="fa-solid fa-user-tie"></i> Buyer
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+        <!-- --------------------------------- -->
+        <!-- FORM 2: REGISTRATION FORM         -->
+        <!-- --------------------------------- -->
+        <form class="auth-form hidden" id="registerForm">
+          
+          <!-- Role Selection for Registration -->
+          <div class="form-group">
+            <label class="form-label" for="regRole">
+              <i class="fa-solid fa-id-badge"></i> Account Type / Role
+            </label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-user-gear input-icon"></i>
+              <select id="regRole" class="glass-select" required>
+                <option value="farmer">👨‍🌾 Farmer / Herb Cultivator & Forager</option>
+                <option value="fpo">🏢 Village Cooperative / FPO Aggregator</option>
+                <option value="buyer">🏭 Verified B2B Herb / Pharma Buyer</option>
+                <option value="lab">🔬 Certified Testing Laboratory (AYUSH / NABL)</option>
+                <option value="logistics">🚚 Cold-Chain & Transport Partner</option>
+                <option value="admin">🛡️ Platform Admin / Agronomist</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Two Column Inputs: Full Name & Email -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="regFullName">
+                <i class="fa-solid fa-user"></i> Full Name *
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-signature input-icon"></i>
+                <input 
+                  type="text" 
+                  id="regFullName" 
+                  class="glass-input" 
+                  placeholder="e.g. Ramesh Chandra Sharma" 
+                  required 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regEmail">
+                <i class="fa-solid fa-envelope"></i> Email Address *
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-at input-icon"></i>
+                <input 
+                  type="email" 
+                  id="regEmail" 
+                  class="glass-input" 
+                  placeholder="name@setumoolya.org" 
+                  required 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Two Column Inputs: Phone & Organization -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="regPhone">
+                <i class="fa-solid fa-phone"></i> Phone Number
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-mobile-screen input-icon"></i>
+                <input 
+                  type="tel" 
+                  id="regPhone" 
+                  class="glass-input" 
+                  placeholder="+91 98765 43210" 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regOrg">
+                <i class="fa-solid fa-building-wheat"></i> Organization / FPO
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-sitemap input-icon"></i>
+                <input 
+                  type="text" 
+                  id="regOrg" 
+                  class="glass-input" 
+                  placeholder="Chamoli Herb Collectors Co-op" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio Specialization / Herbs -->
+          <div class="form-group">
+            <label class="form-label" for="regBio">
+              <i class="fa-solid fa-leaf"></i> Herbs / Bio-Compounds Produced
+            </label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-plant-wilt input-icon"></i>
+              <input 
+                type="text" 
+                id="regBio" 
+                class="glass-input" 
+                placeholder="e.g. Kutki, Ashwagandha, Gucchi, Shilajit, Shatavari" 
+              />
+            </div>
+          </div>
+
+          <!-- Location Row -->
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="form-label" for="regState">State</label>
+              <input type="text" id="regState" class="glass-input" placeholder="Uttarakhand" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regDistrict">District</label>
+              <input type="text" id="regDistrict" class="glass-input" placeholder="Chamoli" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regVillage">Village</label>
+              <input type="text" id="regVillage" class="glass-input" placeholder="Joshimath" />
+            </div>
+          </div>
+
+          <!-- Passwords Row -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="regPassword">
+                <i class="fa-solid fa-lock"></i> Password *
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-key input-icon"></i>
+                <input 
+                  type="password" 
+                  id="regPassword" 
+                  class="glass-input" 
+                  placeholder="Min 6 characters" 
+                  minlength="6"
+                  required 
+                />
+                <button type="button" class="toggle-password" id="toggleRegPassword">
+                  <i class="fa-solid fa-eye" id="eyeIconReg"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regConfirmPassword">
+                <i class="fa-solid fa-lock-check"></i> Confirm Password *
+              </label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-shield-check input-icon"></i>
+                <input 
+                  type="password" 
+                  id="regConfirmPassword" 
+                  class="glass-input" 
+                  placeholder="Re-enter password" 
+                  minlength="6"
+                  required 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Register Button -->
+          <button type="submit" class="submit-btn primary-btn" id="regSubmitBtn">
+            <span class="btn-text">
+              <i class="fa-solid fa-user-plus"></i> Create Setu Moolya Account
+            </span>
+            <span class="btn-loader hidden">
+              <i class="fa-solid fa-circle-notch fa-spin"></i> Registering...
+            </span>
+          </button>
+
+        </form>
+
+        <!-- Card Footer -->
+        <div class="card-footer-info">
+          <span><i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Escrow</span>
+          <span>•</span>
+          <span><i class="fa-solid fa-check-double"></i> AYUSH Lab Verified</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- ADMIN & USER DASHBOARD (Revealed Upon Login)    -->
+    <!-- ============================================== -->
+    <section class="dashboard-section hidden" id="dashboardSection">
+      <div class="glass-card dashboard-card">
+
+        <!-- Dashboard Top Bar -->
+        <div class="dash-top-bar">
+          <div class="user-greeting">
+            <div class="user-avatar-badge" id="dashAvatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div>
+              <h2 class="dash-welcome">Welcome, <span id="dashUserName">Admin</span>!</h2>
+              <div class="dash-role-row">
+                <span class="role-badge" id="dashUserRole">Admin</span>
+                <span class="kyc-badge" id="dashUserKyc"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                <span class="user-email" id="dashUserEmail">admin@setumoolya.org</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-actions">
+            <button class="glass-btn" id="refreshDataBtn" title="Refresh Live Data">
+              <i class="fa-solid fa-arrows-rotate"></i> Refresh
+            </button>
+            <button class="glass-btn btn-danger" id="logoutBtn" title="End Session">
+              <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Navigation Tabs -->
+        <div class="dash-nav-tabs">
+          <button class="dash-tab-btn active" data-tab="overview">
+            <i class="fa-solid fa-chart-pie"></i> Overview
+          </button>
+          <button class="dash-tab-btn" data-tab="farmers">
+            <i class="fa-solid fa-users"></i> Farmer Management
+          </button>
+          <button class="dash-tab-btn" data-tab="crops">
+            <i class="fa-solid fa-seedling"></i> Crop & Lot Management
+          </button>
+          <button class="dash-tab-btn" data-tab="requests">
+            <i class="fa-solid fa-clipboard-check"></i> Submissions & KYC
+          </button>
+          <button class="dash-tab-btn" data-tab="reports">
+            <i class="fa-solid fa-file-invoice"></i> Reports & Escrow
+          </button>
+        </div>
+
+        <!-- TAB CONTENT: OVERVIEW -->
+        <div class="dash-tab-content active" id="tab-overview">
+          <div class="stats-grid">
+            <div class="glass-stat-card">
+              <div class="stat-icon-wrap bg-green">
+                <i class="fa-solid fa-users-line"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statFarmers">2,480</div>
+                <div class="stat-label">Registered Foragers & Farmers</div>
+              </div>
+            </div>
+
+            <div class="glass-stat-card">
+              <div class="stat-icon-wrap bg-gold">
+                <i class="fa-solid fa-box-open"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statLots">314 Lots</div>
+                <div class="stat-label">Active Herbal Batches</div>
+              </div>
+            </div>
+
+            <div class="glass-stat-card">
+              <div class="stat-icon-wrap bg-blue">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statEscrow">₹ 4.82 Cr</div>
+                <div class="stat-label">Secured in B2B Escrow</div>
+              </div>
+            </div>
+
+            <div class="glass-stat-card">
+              <div class="stat-icon-wrap bg-purple">
+                <i class="fa-solid fa-vial-circle-check"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statLabs">98.6%</div>
+                <div class="stat-label">AYUSH Lab Purity Standard</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Panels -->
+          <div class="dash-split-panels">
+            <!-- Recent Activity List -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3><i class="fa-solid fa-bell"></i> Live Platform Activity</h3>
+                <span class="live-pill"><span class="pulse-dot"></span> Live</span>
+              </div>
+              <div class="activity-feed" id="activityFeed">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Backend Endpoint Diagnostics -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3><i class="fa-solid fa-server"></i> Backend Route Verifications</h3>
+                <span class="route-count">REST API v1.0</span>
+              </div>
+              <div class="api-test-tools">
+                <p class="api-desc">Test real backend protected endpoints for the current session token:</p>
+                <div class="test-btn-group">
+                  <button class="test-pill" onclick="testEndpoint('/api/auth/me')">
+                    <i class="fa-solid fa-user-check"></i> GET /api/auth/me
+                  </button>
+                  <button class="test-pill" onclick="testEndpoint('/api/auth/test/farmer-portal')">
+                    <i class="fa-solid fa-tractor"></i> Farmer Portal Check
+                  </button>
+                  <button class="test-pill" onclick="testEndpoint('/api/auth/admin/users')">
+                    <i class="fa-solid fa-id-card-clip"></i> Admin Users List
+                  </button>
+                </div>
+                <pre class="api-response-window" id="apiResponseBox">Click an endpoint above to execute authenticated request...</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: FARMER MANAGEMENT -->
+        <div class="dash-tab-content" id="tab-farmers">
+          <div class="table-container">
+            <div class="table-actions-bar">
+              <input type="text" class="table-search" placeholder="Search farmers by name, phone, or village..." />
+              <button class="glass-btn btn-sm"><i class="fa-solid fa-filter"></i> Filter</button>
+            </div>
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th>Farmer Name</th>
+                  <th>Region / Village</th>
+                  <th>Herb Specialty</th>
+                  <th>Total Harvest</th>
+                  <th>KYC Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="farmerTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: CROPS & LOTS -->
+        <div class="dash-tab-content" id="tab-crops">
+          <div class="table-container">
+            <div class="table-actions-bar">
+              <input type="text" class="table-search" placeholder="Search herbal lots, bio-compounds..." />
+              <button class="glass-btn btn-sm"><i class="fa-solid fa-plus"></i> New Harvest Lot</button>
+            </div>
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th>Lot ID</th>
+                  <th>Herb Specie</th>
+                  <th>FPO / Aggregator</th>
+                  <th>Active Compound %</th>
+                  <th>Lab Certificate (COA)</th>
+                  <th>Escrow Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="cropsTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: REQUESTS & KYC -->
+        <div class="dash-tab-content" id="tab-requests">
+          <div class="table-container">
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th>Applicant</th>
+                  <th>Role</th>
+                  <th>Submission Date</th>
+                  <th>Documents</th>
+                  <th>Verification Status</th>
+                  <th>Decision</th>
+                </tr>
+              </thead>
+              <tbody id="kycTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: REPORTS -->
+        <div class="dash-tab-content" id="tab-reports">
+          <div class="reports-summary">
+            <div class="report-banner">
+              <h3><i class="fa-solid fa-file-shield"></i> Setu Moolya Fair Value Index (SM-FVI)</h3>
+              <p>Ensuring transparent pricing for rural collectors with zero middleman exploitation.</p>
+            </div>
+            <div class="stats-grid">
+              <div class="glass-stat-card">
+                <div class="stat-number">₹ 3,450 / kg</div>
+                <div class="stat-label">Kutki (Picrorhiza kurroa) Avg Price</div>
+              </div>
+              <div class="stat-number-card">
+                <div class="stat-number">₹ 28,000 / kg</div>
+                <div class="stat-label">Wild Himalayan Gucchi (Morchella)</div>
+              </div>
+              <div class="stat-number-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Escrow Settlement Security</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Forgot Password Modal -->
+  <div class="modal-overlay hidden" id="forgotModal">
+    <div class="glass-card modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-key"></i> Reset Your Password</h3>
+        <button class="modal-close" id="closeForgotModal">&times;</button>
+      </div>
+      <p class="modal-desc">
+        Enter your registered email address and we'll send you an encrypted password recovery link via Supabase Auth.
+      </p>
+      <form id="forgotForm">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="forgotEmail" class="glass-input" placeholder="you@domain.com" required />
+          </div>
+        </div>
+        <button type="submit" class="submit-btn primary-btn">
+          <i class="fa-solid fa-paper-plane"></i> Send Reset Link
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>

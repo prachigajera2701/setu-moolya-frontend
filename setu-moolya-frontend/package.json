@@ -1,0 +1,18 @@
+{
+  "name": "setu-moolya-frontend",
+  "version": "1.0.0",
+  "description": "Setu Moolya - Transparent Glassmorphic AgriTech Auth & Dashboard Frontend",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "npx serve -l 3000",
+    "open": "start index.html"
+  },
+  "keywords": [
+    "setumoolya",
+    "agritech",
+    "glassmorphism",
+    "frontend"
+  ],
+  "author": "Setu Moolya Team",
+  "license": "ISC"
+}
